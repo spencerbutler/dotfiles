@@ -1,0 +1,13 @@
+# https://www.kilobitspersecond.com/2014/02/10/understanding-gnu-screens-hardstatus-strings/
+
+startup_message off
+defscrollback 50000
+termcapinfo xterm ti@:te@
+termcapinfo xterm-color ti@:te@
+hardstatus alwayslastline
+hardstatus string '%{gk}[%{G}%H%{g}][%= %{wk}%?%-Lw%?%{=b kR}(%{W}%n*%f %t%?(%u)%?%{=b kR})%{= kw}%?%+Lw%?%?%= %{g}]%{=b C}[%Y-%m-%d %c %A]%{W}'
+vbell off
+shell -$SHELL
+logtstamp on
+logtstamp after 1
+
