@@ -1,4 +1,4 @@
-call plug#begin('~/.vim/plugged')
+call plug#begin("~/.vim/plugged")
   Plug 'tpope/vim-sensible'
   Plug 'ap/vim-css-color'
   Plug 'vim-syntastic/syntastic'
@@ -6,6 +6,7 @@ call plug#begin('~/.vim/plugged')
   Plug '2072/PHP-Indenting-for-VIm'
   Plug 'vim-scripts/phpfolding.vim'
 call plug#end()
+filetype plugin on
 syntax on
 colorscheme delek
 set hlsearch incsearch
@@ -26,6 +27,8 @@ set nobackup
 set nowb
 set splitbelow
 set splitright
+set cmdheight=2
+let g:netrw_silent=1
 
 " Return to last edit position when opening files (You want this!)
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
@@ -51,6 +54,8 @@ nmap <C-n> :tabn<CR>
 nmap <C-p> :tabp<CR>
 
 " fold that shit up!
+" but not by default...
+let g:DisableAutoPHPFolding = 1
 set foldmethod=syntax
 set foldcolumn=1
 set foldlevelstart=99
