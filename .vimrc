@@ -1,17 +1,18 @@
-call plug#begin("~/.vim/plugged")
+silent! call plug#begin("~/.vim/plugged")
   Plug 'tpope/vim-sensible'
   Plug 'ap/vim-css-color'
   Plug 'vim-syntastic/syntastic'
-  Plug 'mattn/emmet-vim'
   Plug '2072/PHP-Indenting-for-VIm'
   Plug 'vim-scripts/phpfolding.vim'
 call plug#end()
+highlight link phpInterpSimpleError none
 filetype plugin on
 syntax on
 colorscheme delek
+set nocompatible
 set hlsearch incsearch
 set formatoptions+=nj
-set mouse-=a
+set mouse=a
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2
@@ -29,14 +30,12 @@ set splitbelow
 set splitright
 set cmdheight=2
 let g:netrw_silent=1
+set statusline=%a\ %y\ %p%%\ %f\ %l\:%c\ \%=%q\ LINES:CUR\ %L\:%n\
 
 " Return to last edit position when opening files (You want this!)
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-let g:user_emmet_leader_key=','                                                                                                                                                                                    
 let php_folding=0
-let g:user_emmet_mode='a' 
 let g:PHP_outdentphpescape = 0
-"let mapleader = ","
 let mapleader="\<Space>"
 " double <space> to clear highligt matches
 nnoremap <silent> <Leader><Space> :nohlsearch<CR>
@@ -47,9 +46,9 @@ nnoremap <C-j> <C-w><C-j>
 nnoremap <C-k> <C-w><C-k>
 nnoremap <C-l> <C-w><C-l>
 nnoremap <C-h> <C-w><C-h>
-"ctrl+n for new tab
+"ctrl+i for new tab
 nmap <C-i> :tabnew<CR>
-" ctrl+l/h to switch tabs
+" ctrl+n/p to switch tabs
 nmap <C-n> :tabn<CR>
 nmap <C-p> :tabp<CR>
 
@@ -63,15 +62,17 @@ map <F5> <Esc>:EnableFastPHPFolds<Cr>
 map <F6> <Esc>:EnablePHPFolds<Cr>
 map <F7> <Esc>:DisablePHPFolds<Cr>
 
-let g:user_emmet_settings = {
-  \  'php' : {
-  \    'extends' : 'html',
-  \    'filters' : 'c',
-  \  },
-  \  'xml' : {
-  \    'extends' : 'html',
-  \  },
-  \  'haml' : {
-  \    'extends' : 'html',
-  \  },
-  \}
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+" figure out what is highlighting that annoying thing you hate
+nm <silent> <F1> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name")
+    \ . '> trans<' . synIDattr(synID(line("."),col("."),0),"name")
+    \ . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name")
+    \ . ">"<CR>
