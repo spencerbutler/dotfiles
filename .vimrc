@@ -73,6 +73,9 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
+" Powerline in vim with vim-airline
+let g:airline_powerline_fonts = 1
+ 
 " Elegant set paste
 nnoremap <F2> :set invpaste paste?<CR>
 set pastetoggle=<F2>
