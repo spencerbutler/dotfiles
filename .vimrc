@@ -5,6 +5,7 @@ silent! call plug#begin("~/.vim/plugged")
   Plug 'vim-syntastic/syntastic'
   Plug '2072/PHP-Indenting-for-VIm'
   Plug 'vim-scripts/phpfolding.vim'
+  Plug 'vim-airline/vim-airline'
 call plug#end()
 highlight link phpInterpSimpleError none
 filetype plugin on
