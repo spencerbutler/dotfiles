@@ -1,0 +1,33 @@
+##########################
+# <spencerb@honeycomb.net>
+##########################
+
+#"\e[1~": beginning-of-line     # Home key
+#"\e[4~": end-of-line           # End key
+##"\e[5~": beginning-of-history  # PageUp key
+##"\e[6~": end-of-history        # PageDown key
+#"\e[5~": history-search-backward  # PgUp
+#"\e[6~": history-search-forward   # PgDn
+#"\e[3~": delete-char           # Delete key
+#"\e[2~": quoted-insert         # Insert key
+#"\eOD": backward-word          # Ctrl + Left Arrow key
+#"\eOC": forward-word           # Ctrl + Right Arrow key
+
+
+# do not bell on tab-completion
+set bell-style none
+
+set colored-stats on
+set meta-flag on
+set input-meta on
+set convert-meta off
+set output-meta on
+
+# test https://coderwall.com/p/oqtj8w
+set show-all-if-ambiguous on
+set completion-ignore-case on
+
+# Completed names which are symbolic links to
+# directories have a slash appended.
+set mark-symlinked-directories on
+

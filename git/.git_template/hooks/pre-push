@@ -1,0 +1,20 @@
+#!/bin/bash
+
+
+while read oldrev newrev refname
+do
+#  echo "oldrev: $oldrev"
+#  echo "newrev: $newrev"
+#  echo "refname: $refname"
+
+  branch=$(git rev-parse --symbolic --abbrev-ref $refname)
+
+  echo "branch: $branch"
+  echo ""
+  echo "Click on the following link to submit a PR:"
+  echo ""
+  echo ""
+  echo "https://source.honeycomb.net/Honeycomb/puppet/compare/develop...$(id -n -u):${branch}"
+  echo ""
+  echo ""
+done
