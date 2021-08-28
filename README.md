@@ -1,22 +1,15 @@
 # go go go dotfiles!
 
 `cd ~`
-- Clone the repo:
-`git clone https://github.com/spencerbutler/dotfiles.git`
-- Enter the dotfiles directory
-`cd dotfiles`
-- If this is the first time cloning the repo, configure the submodules for vim
-`git submodule update --init --recursive`
-Later on, to update the modules for vim
-`git submodule update --recursive --remote`
+## Clone the repo:
+`git clone https://github.com/spencerbutler/dotfiles.git .dotfiles`
+## Enter the dotfiles directory
+`cd .dotfiles`
 ## Install the bash settings
 `stow bash -t ~/`
-## Install bash settings for the root user
-`sudo stow bash -t /root`
-## Install inputrc
-`stow inputrc -t ~/`
-Uninstall inputrc
-`stow -D inputrc -t ~/`
+
+
+
 
 
 
