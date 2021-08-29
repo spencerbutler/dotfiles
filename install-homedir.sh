@@ -25,9 +25,8 @@ fi
 [ -f ~/.screenrc ] && mv ~/.screenrc $DF_ARCHIVE/
 
 cd $HOME
-git clone $DF_REPO  ~/.dotfiles || exit 1
+git clone $DF_REPO  ~/.dotfiles || { echo "Could not clone $DF_REPO"; exit 1; }
 cd ${HOME}/.dotfiles
-./first-run.sh
 stow -v bash
 stow -v vim
 stow -v tmux
