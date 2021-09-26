@@ -1,3 +1,4 @@
 *.sw[op]
 vim/.vim/undodir/*
 vim/.vim/.netrwhist
+vim/.vim/plugged

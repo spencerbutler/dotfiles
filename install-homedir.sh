@@ -12,7 +12,7 @@ fi
 
 [ ! -d $DF_ARCHIVE ] && mkdir $DF_ARCHIVE
 [ -f ~/.bashrc ] && mv ~/.bashrc $DF_ARCHIVE/
-[ -f ~/.bash_login ] && mv ~/.bash_login $DF_ARCHIVE/
+[ -f ~/.bash_logout ] && mv ~/.bash_logout $DF_ARCHIVE/
 [ -f ~/.bash_profile ] && mv ~/.bash_profile $DF_ARCHIVE/
 [ -d ~/.vim ] && mv ~/.vim $DF_ARCHIVE/
 [ -f ~/.vimrc ] && mv ~/.vimrc $DF_ARCHIVE/
@@ -25,8 +25,12 @@ fi
 [ -f ~/.screenrc ] && mv ~/.screenrc $DF_ARCHIVE/
 
 cd $HOME
-git clone $DF_REPO  ~/.dotfiles || { echo "Could not clone $DF_REPO"; exit 1; }
-cd ${HOME}/.dotfiles
+if [ ! -d ${HOME}/.dotfiles ]; then
+  git clone $DF_REPO  ~/.dotfiles || { echo "Could not clone $DF_REPO"; exit 1; }
+else
+	cd ${HOME}/.dotfiles
+	git pull
+fi
 stow -v bash
 stow -v vim
 stow -v tmux
