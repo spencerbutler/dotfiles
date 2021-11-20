@@ -149,6 +149,7 @@ elif [[ $OSTYPE =~ openbsd* ]] ; then
 else
   alias ll="ls -lap"
 fi
+alias tmux="tmux -2"
 alias stow-vim="stow vim -vt ~/"
 alias stow-tmux="stow tmux -vt ~/"
 alias stow-bash="stow bash -vt ~/"
