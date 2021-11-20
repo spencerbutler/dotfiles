@@ -31,7 +31,7 @@ archive() {
         echo "==> Archiving $file => ${DF_ARCHIVE}/${file}"
         mv $file ${DF_ARCHIVE}/
     else
-        echo "==> $file doesn't exist"
+        echo "III==> $file doesn't exist"
     fi
     cd $HERE
 }
@@ -42,9 +42,10 @@ install_file() {
     cd $HOME
 
     if [ -d "${DF_DEST}/${file}" -a "$file" = '.vim' ]; then
-        echo "=> Copying $file directory..."
+        echo "=> Copying ${DF_DEST}/${file} => $file..."
         cp -av ${DF_DEST}/${file} $file/
     else
+        echo "=> Linking ${DF_DEST}/${file} => $file..."
         ln -s ${DF_DEST}/${file} .
     fi
 
@@ -54,9 +55,11 @@ install_file() {
 
 if [ ! -d "$DF_DEST" ]; then
     cd $HOME
-    git clone $DF_REPO  $DF_DEST || { echo "Could not clone $DF_REPO"; exit 1; }
+    echo "==> Cloning $DF_REPO ..."
+    git clone $DF_REPO  $DF_DEST || { echo "XXX=> Could not clone $DF_REPO"; exit 1; }
 else
     cd $DF_DEST
+    echo "==> Pulling $DF_REPO ..."
     git pull
 fi
 
@@ -65,7 +68,7 @@ for dotfile in $DOTFILES; do
     install_file $dotfile
 done
 
-. ${HOME}/.bashrc
+bash -c '. ~/.bashrc'
 echo .
 echo ..
 echo ...
