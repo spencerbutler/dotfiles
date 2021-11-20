@@ -65,7 +65,7 @@ for dotfile in $DOTFILES; do
     install_file $dotfile
 done
 
-source ${HOME}/.bashrc
+. ${HOME}/.bashrc
 echo .
 echo ..
 echo ...

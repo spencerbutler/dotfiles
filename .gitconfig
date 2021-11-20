@@ -10,4 +10,5 @@
     whitespace = cr-at-eol
 [init]
     templatedir = ~/.git_template
-
+[pull]
+	rebase = false
