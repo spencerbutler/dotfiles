@@ -14,7 +14,6 @@ DOTFILES=".bashrc
 .gitconfig
 .screenrc
 .vim
-.git
 "
 
 [ -d $DF_ARCHIVE ] || mkdir $DF_ARCHIVE
@@ -26,13 +25,13 @@ archive() {
     cd $HOME
 
     if [ -n "$islink" ]; then
-      echo "==> Removing SymLink $file => $islink"
-      rm $file
+        echo "==> Removing SymLink $file => $islink"
+        rm $file
     elif [ -f "$file" -o -d "$file" ]; then
-      echo "==> Archiving $file => ${DF_ARCHIVE}/${file}"
-      mv $file ${DF_ARCHIVE}/
+        echo "==> Archiving $file => ${DF_ARCHIVE}/${file}"
+        mv $file ${DF_ARCHIVE}/
     else
-      echo "==> $file doesn't exist"
+        echo "==> $file doesn't exist"
     fi
     cd $HERE
 }
@@ -43,10 +42,12 @@ install_file() {
     cd $HOME
 
     if [ -d "${DF_DEST}/${file}" -a "$file" = '.vim' ]; then
-      cp -av ${DF_DEST}/${file} $file/
+        echo "=> Copying $file directory..."
+        cp -av ${DF_DEST}/${file} $file/
+    else
+        ln -s ${DF_DEST}/${file} .
     fi
 
-    ln -s ${DF_DEST}/${file} .
     cd $HERE
 }
 
