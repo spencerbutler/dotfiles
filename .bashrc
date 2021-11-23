@@ -9,6 +9,13 @@ if [[ $- != *i* ]] ; then
     return
 fi
 
+# FreeBSD
+[[ $PS1 && -f /usr/local/share/bash-completion/bash_completion.sh ]] && \
+          source /usr/local/share/bash-completion/bash_completion.sh
+# Linux
+[[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] && \
+          source /usr/share/bash-completion/bash_completion
+
 # override global completions with our own
 if [ -f ~/.git-completion.bash ]; then
   . ~/.git-completion.bash

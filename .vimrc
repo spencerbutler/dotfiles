@@ -1,6 +1,7 @@
 silent! call plug#begin("~/.vim/plugged")
   Plug 'tpope/vim-sensible'
   Plug 'ap/vim-css-color'
+  " vim-syntastic does NOT play well with Xshell
   Plug 'vim-syntastic/syntastic'
   Plug 'rodjek/vim-puppet'
   Plug 'vim-airline/vim-airline'
@@ -52,8 +53,6 @@ let g:syntastic_enable_signs=1
 let g:airline_powerline_fonts=1
 let g:vim_markdown_folding_disabled=1
 let mapleader="\<Space>"
-" Powerline in vim with vim-airline
-let g:airline_powerline_fonts = 1
 
 highlight RedundantWhitespace ctermbg=darkred guibg=darkred ctermfg=White guifg=White
 match RedundantWhitespace /\s\+$\|\t/
