@@ -7,7 +7,6 @@ DF_DEST="${HOME}/.dotfiles"
 DF_REPO="https://github.com/spencerbutler/dotfiles.git"
 
 DOTFILES=".bashrc
-.bash_profile
 .bash_logout
 .vimrc
 .tmux.conf

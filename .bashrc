@@ -157,7 +157,7 @@ export GIT_EDITOR=vim
 # https://superuser.com/a/601997
 set completion-query-items 1000
 # Enable tab completion for sudo commands https://unix.stackexchange.com/a/345205
-complete -cf sudo
+#complete -cf sudo
 # I'd rather not have to use ^h in vim to backspace dot dot dotfile
 stty erase '^?'
 
