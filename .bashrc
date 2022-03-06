@@ -9,13 +9,6 @@ if [[ $- != *i* ]] ; then
     return
 fi
 
-# FreeBSD
-[[ $PS1 && -f /usr/local/share/bash-completion/bash_completion.sh ]] && \
-          source /usr/local/share/bash-completion/bash_completion.sh
-# Linux
-[[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] && \
-          source /usr/share/bash-completion/bash_completion
-
 # override global completions with our own
 if [ -f ~/.git-completion.bash ]; then
   . ~/.git-completion.bash
@@ -44,23 +37,9 @@ shopt -s no_empty_cmd_completion
 # Enable history appending instead of overwriting when exiting.  #139609
 shopt -s histappend
 
-# Change the window title of X terminals
-# this is redundant because we set the title of the window in TITLEBAR in color_my_prompt
-case ${TERM} in
-    [aEkx]term*|rxvt*|gnome*|konsole*|interix)
-        PS1='\[\033]0;\u@\h:\w\007\]'
-        ;;
-    screen*)
-        PS1='\[\033k\u@\h:\w\033\\\]'
-        ;;
-    *)
-        unset PS1
-        ;;
-esac
-
-#############################
-# FUNCTION
-#############################
+##############################
+## FUNCTION
+##############################
 function color_my_prompt_user {
     local TITLEBAR="\[\033]0;${IP_ADDRESS} \u@\h:\w\007\]"
     local __user_and_host="\[\033[01;32m\]\u@\h"
@@ -86,12 +65,6 @@ function color_my_prompt_root {
 function dont_color_my_prompt {
     local TITLEBAR="\[\033]0;${IP_ADDRESS} \u@\h:\w\007\]"
     export PS1="$p${TITLEBAR}\u@\h:\w\$ "
-}
-
-geo () {
-  geoiplookup $1
-  geoiplookup -f /usr/local/share/GeoIP/GeoLiteCity.dat $1
-  dig +short $1
 }
 
 fix_storage_dirs () {
@@ -156,7 +129,6 @@ elif [[ $OSTYPE =~ openbsd* ]] ; then
 else
   alias ll="ls -lap"
 fi
-alias tmux="tmux -2"
 alias stow-vim="stow vim -vt ~/"
 alias stow-tmux="stow tmux -vt ~/"
 alias stow-bash="stow bash -vt ~/"
@@ -176,6 +148,7 @@ alias git-push-master="git push -u origin master"
 alias root="sudo -i"
 alias did="vim +'$r!date; echo via Spencer Butler' ~/did.txt"
 alias root="sudo su -"
+alias vim="nvim"
 
 export HISTSIZE=1000000 SAVEHIST=1000000
 export EDITOR=vim

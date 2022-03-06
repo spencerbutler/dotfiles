@@ -1,3 +1,4 @@
+" curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 silent! call plug#begin("~/.vim/plugged")
   Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': 'yarn install --frozen-lockfile'}
   Plug 'vim-syntastic/syntastic'
@@ -8,6 +9,7 @@ call plug#end()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Spencer Stuff
 """"""""
+" start from the same position you left off
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 let mapleader="\<Space>"
 set mouse=a
