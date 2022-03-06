@@ -35,6 +35,7 @@ nnoremap <C-i> :tabnew<CR>
 " ctrl+n/p to switch tabs
 nnoremap <C-n> :tabn<CR>
 nnoremap <C-p> :tabp<CR>
+nnoremap <leader>r :!%:p<ENTER>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
