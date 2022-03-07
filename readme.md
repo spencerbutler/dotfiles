@@ -5,3 +5,6 @@
 - enable "Treat ambiguously sized charachters as wide"
 ## tmux
 - set default-terminal "xterm-256color"
+
+## nvim
+- nvim links to ~/.config/nvim
