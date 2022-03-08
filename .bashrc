@@ -2,6 +2,7 @@
 # Spencer Butler <spencerb@honeycomb.net>
 
 [ -d "${HOME}/.local/bin" ] && PATH=${PATH}:${HOME}/.local/bin
+export PROMPT_COMMAND='history -a'
 
 # set this to 1 if you want a pretty prompt
 usecolor=1
