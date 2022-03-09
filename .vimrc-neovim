@@ -35,7 +35,10 @@ nnoremap <C-i> :tabnew<CR>
 " ctrl+n/p to switch tabs
 nnoremap <C-n> :tabn<CR>
 nnoremap <C-p> :tabp<CR>
+" run current file (needs shbang)
 nnoremap <leader>r :!%:p<ENTER>
+" see if the file changed since opening
+nnoremap <leader>l :checktime<ENTER>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
