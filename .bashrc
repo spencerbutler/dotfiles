@@ -151,6 +151,7 @@ alias git-push-master="git push -u origin master"
 alias root="sudo -i"
 alias did="vim +'$r!date; echo via Spencer Butler' ~/did.txt"
 alias root="sudo su -"
+alias dc="sudo docker-compose"
 if command -v nvim >/dev/null
 then
 	alias vim="nvim"
