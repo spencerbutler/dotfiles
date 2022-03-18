@@ -25,3 +25,5 @@ fi
 if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
+
+[ -d /opt/puppetlabs/puppet/bin ] && PATH="/opt/puppetlabs/puppet/bin:$PATH"
