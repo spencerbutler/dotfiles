@@ -8,6 +8,7 @@ DF_REPO="https://github.com/spencerbutler/dotfiles.git"
 
 DOTFILES=".bashrc
 .bash_logout
+.profile
 .vimrc
 .tmux.conf
 .gitconfig
