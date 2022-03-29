@@ -22,6 +22,7 @@ set smarttab
 set autoindent
 set noswapfile
 set nobackup
+colorscheme elflord " figure out a better solution
 
 nnoremap <Leader><Space> :nohlsearch<CR>
 " stop giving me carpal tunnel vim!
