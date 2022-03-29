@@ -12,6 +12,9 @@ call plug#end()
 " start from the same position you left off
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 let mapleader="\<Space>"
+" added expandtab to stop hard tabs from appearing after adding coc.nvim on
+" FreeBSD
+set expandtab
 set mouse=a
 set pastetoggle=<F2>
 set showmode
