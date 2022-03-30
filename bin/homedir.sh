@@ -14,6 +14,7 @@ DOTFILES=".bashrc
 .screenrc
 .vim
 nvim
+.pylintrc
 "
 
 [ -d $DF_ARCHIVE ] || mkdir $DF_ARCHIVE
