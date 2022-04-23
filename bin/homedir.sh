@@ -28,11 +28,11 @@ archive() {
     if [ -n "$islink" ]; then
         echo "==> Removing SymLink $file => $islink"
         rm $file
-		# you should add a check for if ~/.config/$file is a symlink and if it points here
-		# TODOtolazy
-		elif [ "$file" = "nvim" -a -d "${HOME}/.config/$file" ]; then
-				echo "==> Archiving ${HOME}/.config/$file => ${DF_ARCHIVE}/${file}"
-				mv ${HOME}/.config/$file ${DF_ARCHIVE}/
+    # you should add a check for if ~/.config/$file is a symlink and if it points here
+    # TODOtolazy
+    elif [ "$file" = "nvim" -a -d "${HOME}/.config/$file" ]; then
+        echo "==> Archiving ${HOME}/.config/$file => ${DF_ARCHIVE}/${file}"
+        mv ${HOME}/.config/$file ${DF_ARCHIVE}/
     elif [ -f "$file" -o -d "$file" ]; then
         echo "==> Archiving $file => ${DF_ARCHIVE}/${file}"
         mv $file ${DF_ARCHIVE}/
@@ -51,10 +51,10 @@ install_file() {
         echo "=> Copying ${DF_DEST}/${file} => $file..."
         cp -av ${DF_DEST}/${file} $file/
     elif [ -d "${DF_DEST}/${file}" -a "$file" = 'nvim' ]; then
-				if [ -d "${HOME}/.config" ]; then
-					echo "=> Copying ${DF_DEST}/${file} => ${HOME}/.config/$file..."
-					ln -s ${DF_DEST}/${file} ${HOME}/.config/$file
-				fi
+        if [ -d "${HOME}/.config" ]; then
+          echo "=> Copying ${DF_DEST}/${file} => ${HOME}/.config/$file..."
+          ln -s ${DF_DEST}/${file} ${HOME}/.config/$file
+        fi
     else
         echo "=> Linking ${DF_DEST}/${file} => $file..."
         ln -s ${DF_DEST}/${file} .
