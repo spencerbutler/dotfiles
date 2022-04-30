@@ -113,6 +113,48 @@ else
     dont_color_my_prompt
 fi
 
+parse_time() {
+    # VAL is seconds
+    local VAL="${1:-$(date +%s)}"
+    local _year=year
+    local _month=month
+    local _day=day
+    local _hour=hour
+    local _min=min
+    local _sec=sec
+    local year="$(( 60*60*24*365 ))"
+    local month="$(( (60*60*24*365)/12 ))"
+    local day="$(( 60*60*24 ))"
+    local hour="$(( 60*60 ))"
+
+    local YEAR="$(( VAL / year ))";        local year_sec="$(( VAL % year ))"
+    local MONTH="$(( year_sec / month ))"; local month_sec="$(( year_sec % month ))"
+    local DAY="$(( month_sec / day ))";    local day_sec="$(( month_sec % day ))"
+    local HOUR="$(( day_sec / hour ))";    local hour_sec="$(( day_sec % hour ))"
+    local MIN="$(( hour_sec / 60 ))"
+    local SEC="$(( hour_sec % 60 ))"
+
+    [ "$YEAR"  -gt 1 ] && _year=years
+    [ "$MONTH" -gt 1 ] && _month=months
+    [ "$DAY"   -gt 1 ] && _day=days
+    [ "$HOUR"  -gt 1 ] && _hour=hours
+    [ "$MIN"   -gt 1 ] && _min=mins
+    [ "$SEC"   -gt 1 ] && _sec=secs
+
+    if [ "$YEAR" = 0 -a "$MONTH" = 0 -a "$DAY" = 0 -a "$HOUR" = 0 ]; then
+        OUT="$MIN $_min $SEC $_sec"
+    elif [ "$YEAR" = 0 -a "$MONTH" = 0 -a "$DAY" = 0 ]; then
+        OUT="$HOUR $_hour $MIN $_min $SEC $_sec"
+    elif [ "$YEAR" = 0 -a "$MONTH" = 0 ]; then
+        OUT="$DAY $_day $HOUR $_hour $MIN $_min $SEC $_sec"
+    elif [ "$YEAR" = 0 ]; then
+        OUT="$MONTH $_month $DAY $_day $HOUR $_hour $MIN $_min $SEC $_sec"
+    else
+        OUT="$YEAR $_year $MONTH $_month $DAY $_day $HOUR $_hour $MIN $_min $SEC $_sec"
+    fi
+    echo $OUT
+}
+
 #############################
 # ALIAS
 #############################
