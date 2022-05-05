@@ -114,6 +114,7 @@ else
 fi
 
 parse_logtime() {
+    # dmesg style timestamp decoder
     local ERR="$1"
     local BOOT="$(date +%s -d "$(uptime -s)")"
     local ERR_DATE="$(( BOOT + ERR ))"
