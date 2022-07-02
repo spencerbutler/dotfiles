@@ -113,6 +113,14 @@ else
     dont_color_my_prompt
 fi
 
+parse_logtime() {
+    # dmesg style timestamp decoder
+    local ERR="$1"
+    local BOOT="$(date +%s -d "$(uptime -s)")"
+    local ERR_DATE="$(( BOOT + ERR ))"
+    date -d @"$ERR_DATE"
+}
+
 parse_time() {
     # VAL is seconds
     local VAL="${1:-$(date +%s)}"
