@@ -26,4 +26,8 @@ if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
 
+if [ -d "$HOME/git/devops" ] ; then
+    PATH="$HOME/git/devops:$PATH"
+fi
+
 [ -d /opt/puppetlabs/puppet/bin ] && PATH="/opt/puppetlabs/puppet/bin:$PATH"
