@@ -30,4 +30,5 @@ if [ -d "$HOME/git/devops" ] ; then
     PATH="$HOME/git/devops:$PATH"
 fi
 
-[ -d /opt/puppetlabs/puppet/bin ] && PATH="/opt/puppetlabs/puppet/bin:$PATH"
+[ -f /etc/bash/bash_completion.sh ] && source /etc/bash/bash_completion.sh
+[ -f /usr/local/etc/bash/bash_completion.sh ] && source /usr/local/etc/bash/bash_completion.sh
