@@ -215,6 +215,9 @@ export HISTSIZE=1000000 SAVEHIST=1000000
 export EDITOR=vim
 export GIT_EDITOR=vim
 export HISTCONTROL=ignoredups
+# make sure LANG is set to en_US.utf8
+export LANG=en_US.utf8
+
 # dont show me "Display all 105 possibilities" when pressing tab to complete the git branch
 # https://superuser.com/a/601997
 set completion-query-items 1000
