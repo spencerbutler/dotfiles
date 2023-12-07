@@ -201,8 +201,6 @@ alias git-push-master="git push -u origin master"
 alias root="sudo -i"
 alias did="vim +'$r!date; echo via Spencer Butler' ~/did.txt"
 alias root="sudo su -"
-alias dc="sudo docker-compose"
-alias docker="sudo docker"
 alias glances="sudo glances --disable-plugin connections,irq"
 if command -v nvim >/dev/null
 then
