@@ -209,7 +209,6 @@ then
 	alias vim="nvim"
 fi
 alias pylint="pylint --rcfile ~/.pylintrc"
-alias docker="sudo docker"
 
 export HISTSIZE=1000000 SAVEHIST=1000000
 export EDITOR=vim
