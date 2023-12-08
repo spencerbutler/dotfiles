@@ -213,7 +213,7 @@ export EDITOR=vim
 export GIT_EDITOR=vim
 export HISTCONTROL=ignoredups
 # make sure LANG is set to en_US.utf8
-export LANG=en_US.utf8
+export LANG=en_US.UTF-8
 
 # dont show me "Display all 105 possibilities" when pressing tab to complete the git branch
 # https://superuser.com/a/601997
