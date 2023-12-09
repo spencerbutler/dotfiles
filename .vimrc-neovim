@@ -45,6 +45,14 @@ nnoremap <leader>r :!%:p<ENTER>
 nnoremap <leader>l :checktime<ENTER>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" special things
+" https://github.com/neoclide/coc.nvim/wiki/Using-the-configuration-file
+autocmd FileType json syntax match Comment +\/\/.\+$+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " The following is for coc.nvim support

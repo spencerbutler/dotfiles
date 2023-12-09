@@ -169,15 +169,18 @@ parse_time() {
 
 # colorize ls output
 # Set up system specific aliases
-if [[ $OSTYPE == "linux-gnu" ]] ; then
+if [[ $OSTYPE =~ "linux-" ]] ; then
   alias ls="ls --color"
-  alias ll="ls -lap --color"
+  alias ll="ls -l --color"
+  alias lla="ls -al --color"
 elif [[ $OSTYPE =~ freebsd* ]] ; then
   alias ls="ls -G"
-  alias ll="ls -lapG"
+  alias ll="ls -lG"
+  alias lla="ls -lG"
 elif [[ $OSTYPE =~ openbsd* ]] ; then
   alias ls="colorls -G"
-  alias ll="colorls -lapG"
+  alias ll="colorls -lG"
+  alias lla="colorls -lG"
   alias sudo="sudo -c ldap"
 else
   alias ll="ls -lap"
