@@ -81,6 +81,15 @@ function dont_color_my_prompt {
     export PS1="$p${TITLEBAR}\u@\h:\w\$ "
 }
 
+short_pwd() {
+  if [ -n $1 ]; then
+    SHORT_PWD=0
+  else
+    SHORT_PWD=1
+  fi
+  . ~/.bashrc
+}
+
 fix_storage_dirs () {
     sudo find ${1} -type f -exec chmod 0664 {} \;
     sudo find ${1} -type d -exec chmod 0775 {} \;
@@ -222,7 +231,7 @@ alias root="sudo su -"
 alias glances="sudo glances --disable-plugin connections,irq"
 if command -v nvim >/dev/null
 then
-	alias vim="nvim"
+  alias vim="nvim"
 fi
 alias pylint="pylint --rcfile ~/.pylintrc"
 
