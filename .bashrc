@@ -46,7 +46,7 @@ shopt -s histappend
 function color_my_prompt_user_short_pwd {
     local TITLEBAR="\[\033]0;${IP_ADDRESS} \u@\h:\w\007\]"
     local __user_and_host="\[\033[01;32m\]\u@\h"
-    local __cur_location="\[\033[01;34m\]\w"
+    local __cur_location="\[\033[01;34m\]\W"
     local __git_branch_color="\[\033[31m\]"
     local __git_branch='`git branch 2> /dev/null | grep -e ^* | sed -E  s/^\\\\\*\ \(.+\)$/\(\\\\\1\)\ /`'
     local __prompt_tail="\[\033[35m\]$"
