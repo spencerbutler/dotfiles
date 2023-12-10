@@ -43,7 +43,17 @@ shopt -s histappend
 ##############################
 ## FUNCTION
 ##############################
-function color_my_prompt_user {
+function color_my_prompt_user_short_pwd {
+    local TITLEBAR="\[\033]0;${IP_ADDRESS} \u@\h:\w\007\]"
+    local __user_and_host="\[\033[01;32m\]\u@\h"
+    local __cur_location="\[\033[01;34m\]\w"
+    local __git_branch_color="\[\033[31m\]"
+    local __git_branch='`git branch 2> /dev/null | grep -e ^* | sed -E  s/^\\\\\*\ \(.+\)$/\(\\\\\1\)\ /`'
+    local __prompt_tail="\[\033[35m\]$"
+    local __last_color="\[\033[00m\]"
+    export PS1="${TITLEBAR}$__user_and_host $__cur_location $__git_branch_color$__git_branch$__prompt_tail$__last_color "
+
+}function color_my_prompt_user {
     local TITLEBAR="\[\033]0;${IP_ADDRESS} \u@\h:\w\007\]"
     local __user_and_host="\[\033[01;32m\]\u@\h"
     local __cur_location="\[\033[01;34m\]\w"
@@ -107,7 +117,11 @@ if [[ $usecolor -eq 1 ]]; then
   if [[ $UID -eq 0 ]]; then
     color_my_prompt_root
   else
-    color_my_prompt_user
+    if [[ $SHORT_PWD -eq 1 ]]; then
+      color_my_prompt_user_short_pwd
+      else
+        color_my_prompt_user
+      fi
   fi
 else
     dont_color_my_prompt
