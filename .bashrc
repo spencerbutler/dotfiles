@@ -82,12 +82,10 @@ function dont_color_my_prompt {
 }
 
 short_pwd() {
-  if [ -n $1 ]; then
-    SHORT_PWD=0
-  else
+    # Shorten many directories in my PS1.
     SHORT_PWD=1
-  fi
-  . ~/.bashrc
+    [ $1 ] && SHORT_PWD=0
+    source ~/.bashrc
 }
 
 fix_storage_dirs () {
