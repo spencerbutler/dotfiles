@@ -217,11 +217,6 @@ elif [[ $OSTYPE =~ openbsd* ]] ; then
 else
   alias ll="ls -lap"
 fi
-alias stow-vim="stow vim -vt ~/"
-alias stow-tmux="stow tmux -vt ~/"
-alias stow-bash="stow bash -vt ~/"
-alias stow-inputrc="stow inputrc -vt ~/"
-alias stow-git="stow git -vt ~/"
 alias ..="cd .."
 alias ssh_unsafe="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 alias scp_unsafe="scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
@@ -232,16 +227,40 @@ alias gs="git status"
 alias gd="git diff"
 alias gdc="git diff --cached"
 alias ga="git add"
+alias gc="git commit -m '$@'"
 alias git-push-master="git push -u origin master"
-alias root="sudo -i"
-alias did="vim +'$r!date; echo via Spencer Butler' ~/did.txt"
-alias root="sudo su -"
-alias glances="sudo glances --disable-plugin connections,irq"
 if command -v nvim >/dev/null
 then
   alias vim="nvim"
 fi
 alias pylint="pylint --rcfile ~/.pylintrc"
+
+# Docker ##################################
+alias dps="docker ps"
+alias dc="docker compose"
+alias di="docker image"
+alias dil="docker image ls"
+alias dv="docker volume"
+alias dvl="docker volume ls"
+alias dn="docker network"
+alias dnl="docker network ls"
+alias ds="docker service"
+alias dsl="docker service ls"
+
+dps_name() {
+    docker ps -f name=$@
+}
+
+dps_exec() {
+    docker exec -it $(docker ps -f name=$1 -q | head -n1) ${2:-sh}
+}
+
+dps_logs() {
+    id=$(docker ps -f name=$1 -q | head -n1)
+    docker logs $2 $id
+}
+
+# End Docker ###############################
 
 export HISTSIZE=1000000 SAVEHIST=1000000
 export EDITOR=vim
