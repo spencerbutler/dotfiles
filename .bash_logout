@@ -1,6 +1,9 @@
-# /etc/skel/.bash_logout
+# delete ssh-keyes and kill any ssh-agent that we may have running
+ssh-add -D &>/dev/null
+ssh-agent -k &>/dev/null
 
-# This file is sourced when a login shell terminates.
+# remove our `.ssh_agent` pseudo lockfile
+[ -f ~/.ssh_agent ] && rm ~/.ssh_agent 
 
 # Clear the screen for security's sake.
 clear

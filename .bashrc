@@ -81,6 +81,16 @@ function dont_color_my_prompt {
     export PS1="$p${TITLEBAR}\u@\h:\w\$ "
 }
 
+start_ssh_agent() {
+    local _SSH_KEY=${1:-~/.ssh/id_ed25519}
+    if [ -z $SSH_AUTH_SOCK ]; then
+        if [ -f $_SSH_KEY ]; then
+            eval $(ssh-agent -s) > ~/.ssh_agent
+            ssh-add $_SSH_KEY >> ~/.ssh_agent
+        fi
+    fi
+}
+
 short_pwd() {
     # Shorten many directories in my PS1.
     SHORT_PWD=1
