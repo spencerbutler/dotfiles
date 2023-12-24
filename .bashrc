@@ -1,8 +1,5 @@
-# BASHRC
-# Spencer Butler <spencerb@honeycomb.net>
-
-[ -d "${HOME}/.local/bin" ] && PATH=${PATH}:${HOME}/.local/bin
-export PROMPT_COMMAND='history -a'
+#!/usr/bin/env bash
+# Spencer Butler <dev@tcos.us>
 
 # set this to 1 if you want a pretty prompt
 usecolor=1
@@ -12,9 +9,22 @@ if [[ $- != *i* ]] ; then
     return
 fi
 
-# override global completions with our own
-if [ -f ~/.git-completion.bash ]; then
-  . ~/.git-completion.bash
+# Source bash completion files
+if [ -f "${HOME}"/.git-completion.bash ]; then
+  # shellcheck disable=SC1091
+  . "${HOME}"/.git-completion.bash
+fi
+
+if [ -f /etc/bash/bash_completion.sh ]
+then
+    # shellcheck disable=SC1091
+    . /etc/bash/bash_completion.sh
+fi
+
+if [ -f /usr/local/etc/bash/bash_completion.sh ]
+then
+    # shellcheck disable=SC1091
+    . /usr/local/etc/bash/bash_completion.sh
 fi
 
 # Set ls colors on bsd to match Linux
@@ -41,93 +51,106 @@ shopt -s no_empty_cmd_completion
 shopt -s histappend
 
 ##############################
-## FUNCTION
+# functions
 ##############################
-function color_my_prompt_user_short_pwd {
+get_git_branch() {
+    _get_git_branch_BRANCH=$(git branch 2>/dev/null | head -n 1 | tr -d '* ')
+    echo "(${_get_git_branch_BRANCH})"
+}
+
+color_my_prompt_user_short_pwd() {
+    #get_git_branch
     local TITLEBAR="\[\033]0;${IP_ADDRESS} \u@\h:\w\007\]"
     local __user_and_host="\[\033[01;32m\]\u@\h"
     local __cur_location="\[\033[01;34m\]\W"
     local __git_branch_color="\[\033[31m\]"
-    local __git_branch='`git branch 2> /dev/null | grep -e ^* | sed -E  s/^\\\\\*\ \(.+\)$/\(\\\\\1\)\ /`'
+    # shellcheck disable=SC2016
+    local __git_branch='$(git branch 2> /dev/null | grep -e ^* | sed -E  s/^\\\\\*\ \(.+\)$/\(\\\\\1\)\ /)'
     local __prompt_tail="\[\033[35m\]$"
     local __last_color="\[\033[00m\]"
     export PS1="${TITLEBAR}$__user_and_host $__cur_location $__git_branch_color$__git_branch$__prompt_tail$__last_color "
+
 }
 
-function color_my_prompt_user {
+color_my_prompt_user() {
+    #get_git_branch
     local TITLEBAR="\[\033]0;${IP_ADDRESS} \u@\h:\w\007\]"
     local __user_and_host="\[\033[01;32m\]\u@\h"
     local __cur_location="\[\033[01;34m\]\w"
     local __git_branch_color="\[\033[31m\]"
-    local __git_branch='`git branch 2> /dev/null | grep -e ^* | sed -E  s/^\\\\\*\ \(.+\)$/\(\\\\\1\)\ /`'
+    # shellcheck disable=SC2016
+    local __git_branch='$(git branch 2> /dev/null | grep -e ^* | sed -E  s/^\\\\\*\ \(.+\)$/\(\\\\\1\)\ /)'
     local __prompt_tail="\[\033[35m\]$"
     local __last_color="\[\033[00m\]"
     export PS1="${TITLEBAR}$__user_and_host $__cur_location $__git_branch_color$__git_branch$__prompt_tail$__last_color "
+
 }
 
-function color_my_prompt_root {
+color_my_prompt_root() {
+    #get_git_branch
     local TITLEBAR="\[\033]0;${IP_ADDRESS} \u@\h:\w\007\]"
     local __user_and_host="\[\033[01;31m\]\u@\h"
     local __cur_location="\[\033[01;34m\]\w"
     local __git_branch_color="\[\033[31m\]"
-    local __git_branch='`git branch 2> /dev/null | grep -e ^* | sed -E  s/^\\\\\*\ \(.+\)$/\(\\\\\1\)\ /`'
+    # shellcheck disable=SC2016
+    local __git_branch='$(git branch 2> /dev/null | grep -e ^* | sed -E  s/^\\\\\*\ \(.+\)$/\(\\\\\1\)\ /)'
     local __prompt_tail="\[\033[35m\]$"
     local __last_color="\[\033[00m\]"
     export PS1="${TITLEBAR}$__user_and_host $__cur_location $__git_branch_color$__git_branch$__prompt_tail$__last_color "
 }
 
-function dont_color_my_prompt {
+dont_color_my_prompt() {
     local TITLEBAR="\[\033]0;${IP_ADDRESS} \u@\h:\w\007\]"
-    export PS1="$p${TITLEBAR}\u@\h:\w\$ "
+    export PS1="${TITLEBAR}\u@\h:\w\$ "
 }
 
 start_ssh_agent() {
-    local _SSH_KEY=${1:-~/.ssh/id_ed25519}
-    if [ -z $SSH_AUTH_SOCK ]; then
-        if [ -f $_SSH_KEY ]; then
-            eval $(ssh-agent -s) > ~/.ssh_agent
-            ssh-add $_SSH_KEY >> ~/.ssh_agent
+    local _SSH_KEY=${1:-"${HOME}"/.ssh/id_ed25519}
+    if [ -z "$SSH_AUTH_SOCK" ]; then
+        if [ -f "$_SSH_KEY" ]; then
+            eval "$(ssh-agent -s)" > ~/.ssh_agent
+            ssh-add "$_SSH_KEY" >> ~/.ssh_agent
         fi
     fi
 }
 
 short_pwd() {
+    _short_pwd_RC="${HOME}/.bashrc"
     # Shorten many directories in my PS1.
     SHORT_PWD=1
-    [ $1 ] && SHORT_PWD=0
-    source ~/.bashrc
+    [ "$1" ] && SHORT_PWD=0
+    # shellcheck disable=SC1090
+    . "$_short_pwd_RC"
 }
 
 fix_storage_dirs () {
-    sudo find ${1} -type f -exec chmod 0664 {} \;
-    sudo find ${1} -type d -exec chmod 0775 {} \;
-    sudo chown -R $(whoami):www ${1}
+    _fix_storage_dirs_DIRS="$1"
+    _fix_storage_dirs_USER="$(id -un)"
+    _fix_storage_dirs_GROUP="${2:-www}"
+
+    sudo find "$_fix_storage_dirs_DIRS" -type f -exec chmod 0664 {} +
+    sudo find "$_fix_storage_dirs_DIRS" -type d -exec chmod 0775 {} +
+    sudo chown -R "$_fix_storage_dirs_USER" "$_fix_storage_dirs_GROUP" "$1"
 }
 
 urldecode() { : "${*//+/ }"; echo -e "${_//%/\\x}"; }
-
-genpasswd () {
-    local l=$1
-        [ "$l" == "" ] && l=20
-        tr -dc A-Za-z0-9_ < /dev/urandom | head -c ${l} | xargs
-}
 
 mkpass () {
   IFS=
   local len="${1-8}"
   local chars=({A..z} {0..9})
-  local xtra='#!{}().,'
+  local xtra='#!{}()., '
   local charset="${chars[*]}$xtra"
   while [ 0 -ne "$len" ]; do
-    local pass="$pass${charset:$(($RANDOM%${#charset})):1}"
-    let len--
+    local pass="$pass${charset:$(( RANDOM % ${#charset} )):1}"
+    (( len-- ))
   done
 echo "$pass"
 }
 
 dig_qa () {
   for qa in "$@"; do
-    dig "$qa" | egrep -A1 '(QUEST|ANSW.*SEC)'|sed -e 's/--//g'; echo
+    dig "$qa" | grep -E -A1 '(QUEST|ANSW.*SEC)'|sed -e 's/--//g'; echo
   done
 }
 
@@ -147,10 +170,22 @@ fi
 
 parse_logtime() {
     # dmesg style timestamp decoder
-    local ERR="$1"
-    local BOOT="$(date +%s -d "$(uptime -s)")"
-    local ERR_DATE="$(( BOOT + ERR ))"
+    _parse_logtime_ERR="$1"
+    _parse_logtime_BOOT="$(date +%s -d "$(uptime -s)")"
+    _parse_logtime_ERR_DATE="$(( _parse_logtime_BOOT + _parse_logtime_ERR ))"
     date -d @"$ERR_DATE"
+}
+
+printf_posix_grouping() {
+    # https://www.linuxquestions.org/questions/programming-9/format-numbers-using-bash-672031/#post4269148
+    # If `locale` isn't properly set, `printf` will not work.
+    _printf_posix_NUM="$1"
+
+    echo "$_printf_posix_NUM"  | \
+    sed -r '
+      :L
+      s=([0-9]+)([0-9]{3})=\1,\2=
+      t L'
 }
 
 parse_time() {
@@ -181,22 +216,24 @@ parse_time() {
     [ "$MIN"   -gt 1 ] && _min=mins
     [ "$SEC"   -gt 1 ] && _sec=secs
 
-    if [ "$YEAR" = 0 -a "$MONTH" = 0 -a "$DAY" = 0 -a "$HOUR" = 0 ]; then
+    if [ "$YEAR" = 0 ] && [ "$MONTH" = 0 ] && [ "$DAY" = 0 ] && [ "$HOUR" = 0 ]
+    then
         OUT="$MIN $_min $SEC $_sec"
-    elif [ "$YEAR" = 0 -a "$MONTH" = 0 -a "$DAY" = 0 ]; then
+    elif [ "$YEAR" = 0 ] && [ "$MONTH" = 0 ] && [ "$DAY" = 0 ]; then
         OUT="$HOUR $_hour $MIN $_min $SEC $_sec"
-    elif [ "$YEAR" = 0 -a "$MONTH" = 0 ]; then
+    elif [ "$YEAR" = 0 ] && [ "$MONTH" = 0 ]; then
         OUT="$DAY $_day $HOUR $_hour $MIN $_min $SEC $_sec"
     elif [ "$YEAR" = 0 ]; then
         OUT="$MONTH $_month $DAY $_day $HOUR $_hour $MIN $_min $SEC $_sec"
     else
         OUT="$YEAR $_year $MONTH $_month $DAY $_day $HOUR $_hour $MIN $_min $SEC $_sec"
     fi
-    echo $OUT
+
+    echo "$OUT"
 }
 
 #############################
-# ALIAS
+# aliases
 #############################
 
 # colorize ls output
@@ -247,20 +284,21 @@ alias ds="docker service"
 alias dsl="docker service ls"
 
 dps_name() {
-    docker ps -f name=$@
+    docker ps -f name="$*"
 }
 
 dps_exec() {
-    docker exec -it $(docker ps -f name=$1 -q | head -n1) ${2:-sh}
+    docker exec -it "$(docker ps -f name="$1" -q | head -n1)" "${2:-sh}"
 }
 
 dps_logs() {
-    id=$(docker ps -f name=$1 -q | head -n1)
-    docker logs $2 $id
+    id=$(docker ps -f name="$1" -q | head -n1)
+    docker logs "$2" "$id"
 }
 
 # End Docker ###############################
 
+export PROMPT_COMMAND='history -a'
 export HISTSIZE=1000000 SAVEHIST=1000000
 export EDITOR=vim
 export GIT_EDITOR=vim
@@ -276,8 +314,8 @@ set completion-query-items 1000
 # I'd rather not have to use ^h in vim to backspace dot dot dotfile
 stty erase '^?'
 
-
 unset -f color_my_prompt_user
 unset -f color_my_prompt_root
 unset -f dont_color_my_prompt
+unset -f color_my_prompt_user_short_pwd
 
