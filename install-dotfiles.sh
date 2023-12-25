@@ -96,8 +96,6 @@ install_dotfile() {
                 cp -a "${CWD}/${_install_dotfile}" "${HOME}/"
                 return 0
             fi
-
-
         else
             echo "Installing $_install_dotfile"
             cp -a "${CWD}/${_install_dotfile}" "${HOME}/"
@@ -130,14 +128,9 @@ install_dotfile() {
             ln -s "${CWD}/${_install_dotfile}" "${HOME}/${_install_dotfile}"
         fi
 
-    #else
-    #    if current_file_exists "$_install_dotfile"
-    #    then
-    #        echo "Found existing $_install_dotfile -- appending $UNDO_STRING to the name."
-    #        echo "Installing (replacement) new $_install_dotfile"
-    #        mv "${HOME}/${_install_dotfile}" "${HOME}/${_install_dotfile}-${UNDO_STRING}"
-    #        ln -s "${CWD}/${_install_dotfile}" "${HOME}/${_install_dotfile}"
-    #    fi
+    else
+        echo "Installing new $_install_dotfile"
+        ln -s "${CWD}/${_install_dotfile}" "${HOME}/${_install_dotfile}"
     fi
 }
 
@@ -148,7 +141,7 @@ install_all_dotfiles() {
     done
 }
 
-[ "$#" -eq 0 ] && get_help
+#[ "$#" -eq 0 ] && get_help
 while getopts 'hi:ar' opts
 do
     case "${opts}" in
@@ -167,4 +160,3 @@ do
         ;;
     esac
 done
-    
